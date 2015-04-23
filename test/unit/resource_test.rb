@@ -70,7 +70,6 @@ class ResourceTest < MiniTest::Unit::TestCase
   end
 
   def test_find_all_with_scope
-    skip # legacytest
     stub_request(:get, "http://localhost:3000/api/1/users")
       .with(query: {name: "Jeff Ching"})
       .to_return(headers: {content_type: "application/json"}, body: {
@@ -84,7 +83,6 @@ class ResourceTest < MiniTest::Unit::TestCase
   end
 
   def test_create
-    skip # legacytest
     stub_request(:post, "http://localhost:3000/api/1/users")
       .with(body: {user: {name: "Mickey Mantle", email_address: "mickey@mantle.com"}})
       .to_return(headers: {content_type: "application/json"}, body: {
@@ -101,7 +99,6 @@ class ResourceTest < MiniTest::Unit::TestCase
   end
 
   def test_create_failure
-    skip # legacytest
     stub_request(:post, "http://localhost:3000/api/1/users")
       .with(body: {user: {name: "", email_address: "mickey@mantle.com"}})
       .to_return(headers: {content_type: "application/json"}, body: {
@@ -120,7 +117,6 @@ class ResourceTest < MiniTest::Unit::TestCase
   end
 
   def test_create_failure_with_custom_handling
-    skip # legacytest
     stub_request(:post, "http://localhost:3000/api/1/users")
       .with(body: {user: {name: "", email_address: "mickey@mantle.com"}})
       .to_return(headers: {content_type: "application/json"}, body: {

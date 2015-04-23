@@ -27,7 +27,6 @@ class ServerValidationsTest < MiniTest::Unit::TestCase
   end
 
   def test_create_validation_error
-    skip # legacytest
     stub_request(:post, "http://localhost:3000/api/1/users")
       .with(body: {
         user: {
@@ -52,7 +51,6 @@ class ServerValidationsTest < MiniTest::Unit::TestCase
   end
 
   def test_class_create_validation_error
-    skip # legacytest
     stub_request(:post, "http://localhost:3000/api/1/users")
       .with(body: {
         user: {

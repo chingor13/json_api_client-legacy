@@ -134,7 +134,6 @@ class AssociationTest < MiniTest::Unit::TestCase
   end
 
   def test_can_handle_non_symbolized_keys
-    skip # legacytest
     stub_request(:post, "http://localhost:3000/api/1/foos/10/specifieds")
       .to_return(headers: {content_type: "application/json"}, body: {
         specifieds: [
