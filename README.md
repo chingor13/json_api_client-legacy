@@ -1,8 +1,8 @@
 # JsonApiClient::Legacy
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/json_api_client/legacy`. To experiment with that code, run `bin/console` for an interactive prompt.
+`json_api_client-legacy` lets you use `json_api_client` version 1.0.0 with the previous response formats from 0.x. You can also see the [0.x branch](https://github.com/chingor13/json_api_client/tree/0.x)
 
-TODO: Delete this and the text above, and describe your gem
+The interface should be exactly the same as `json_api_client` except that you should inherit from `JsonApiClient::Legacy::Base` instead of `JsonApiClient::Resource`.
 
 ## Installation
 
@@ -22,13 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+class MyApi < JsonApiClient::Legacy::Base
+  self.site = "http://example.com/api/2"
+end
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# use exactly like `json_api_client` version 1.0.0
+```
 
 ## Contributing
 
