@@ -7,14 +7,20 @@ class PersistenceTest < MiniTest::Unit::TestCase
     assert !user.persisted?
 
     user = User.new(id: 1234)
+    assert !user.persisted?
+
+    user.mark_as_persisted!
+    assert user.persisted?
+
+    user = User.load(id: 1234)
     assert user.persisted?
   end
 
   def test_non_standard_primary_key
-    user_preference = UserPreference.new(id: 1234)
+    user_preference = UserPreference.load(id: 1234)
     assert !user_preference.persisted?
 
-    user_preference = UserPreference.new(user_id: 1234)
+    user_preference = UserPreference.load(user_id: 1234)
     assert user_preference.persisted?
   end
 

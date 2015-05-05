@@ -21,7 +21,7 @@ class ServerValidationsTest < MiniTest::Unit::TestCase
         }
       }.to_json)
 
-    user = User.new(id: 6, name: "Foo", email_address: "foo@bar.com")
+    user = User.load(id: 6, name: "Foo", email_address: "foo@bar.com")
     assert(!user.update_attributes(name: "Foo Bar", email_address: "invalid email address"), "invalid request should return falsy value")
     assert_equal(1, user.errors.length)
   end

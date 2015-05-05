@@ -170,7 +170,7 @@ class ResourceTest < MiniTest::Unit::TestCase
         ]
       }.to_json)
 
-    user = User.new(id: 6, name: "Foo", email_address: "foo@bar.com")
+    user = User.load(id: 6, name: "Foo", email_address: "foo@bar.com")
     user.update_attributes(name: "Foo Bar", email_address: "foo2@bar.com")
     assert_equal("Foo Bar", user.name)
     assert_equal("foo2@bar.com", user.email_address)
@@ -197,7 +197,7 @@ class ResourceTest < MiniTest::Unit::TestCase
         }
       }.to_json)
 
-    user = User.new(id: 6, name: "Foo", email_address: "foo@bar.com")
+    user = User.load(id: 6, name: "Foo", email_address: "foo@bar.com")
     assert_equal(false, user.update_attributes(name: "", email_address: "foo2@bar.com"))
     assert_equal(1, user.errors.length)
     assert_equal("", user.name)

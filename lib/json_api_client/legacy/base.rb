@@ -7,10 +7,6 @@ module JsonApiClient
       self.query_builder = JsonApiClient::Legacy::QueryBuilder
       self.requestor_class = JsonApiClient::Legacy::Requestor
 
-      def persisted?
-        has_attribute?(self.class.primary_key)
-      end
-
       protected
 
       def self.default_attributes
