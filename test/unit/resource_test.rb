@@ -113,30 +113,9 @@ class ResourceTest < MiniTest::Unit::TestCase
       name: "",
       email_address: "mickey@mantle.com"
     )
-    assert_nil user, "expected failure to not return a Resource instance"
+    assert user.errors.present?
   end
 
-  def test_create_failure_with_custom_handling
-    stub_request(:post, "http://localhost:3000/api/1/users")
-      .with(body: {user: {name: "", email_address: "mickey@mantle.com"}})
-      .to_return(headers: {content_type: "application/json"}, body: {
-        users: [],
-        meta: {
-          status: 400,
-          errors: ["Name can't be blank"]
-        }
-      }.to_json)
-
-    response = nil
-    user = User.create(
-      name: "",
-      email_address: "mickey@mantle.com"
-    ) do |resp|
-      response = resp
-    end
-    assert response, "expected failure block to yield response object"
-    assert_nil user, "expected failure to not return a Resource instance"
-  end
 
   def test_each_on_scope
     stub_request(:get, "http://localhost:3000/api/1/users")
@@ -304,7 +283,7 @@ class ResourceTest < MiniTest::Unit::TestCase
     user = User.find(1).first
     user.destroy
 
-    assert_equal({ 'ducks' => 'quack' }, user.last_request_meta)
+    assert_equal({ 'ducks' => 'quack' }, user.last_result_set.meta)
   end
 
   def test_id_with_special_characters

@@ -50,25 +50,4 @@ class ServerValidationsTest < MiniTest::Unit::TestCase
     assert_equal(1, user.errors.length)
   end
 
-  def test_class_create_validation_error
-    stub_request(:post, "http://localhost:3000/api/1/users")
-      .with(body: {
-        user: {
-          name: "Foo Bar",
-          email_address: "invalid email address"
-        }
-      })
-      .to_return(headers: {content_type: "application/json"}, status: 400, body: {
-        users: [
-          {id: 6, name: "Foo Bar", email_address: "invalid email address"}
-        ],
-        meta: {
-          errors: [
-            "Email address is invalid"
-          ]
-        }
-      }.to_json)
-
-    assert(!User.create(name: "Foo Bar", email_address: "invalid email address"), "invalid request should return falsy value")
-  end
 end
