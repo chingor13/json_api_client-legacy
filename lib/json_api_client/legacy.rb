@@ -7,6 +7,7 @@ module JsonApiClient
     autoload :Connection, "json_api_client/legacy/connection"
     autoload :LinkDefinition, "json_api_client/legacy/link_definition"
     autoload :LinkedData, "json_api_client/legacy/linked_data"
+    autoload :Linker, "json_api_client/legacy/linker"
     autoload :Paginator, "json_api_client/legacy/paginator"
     autoload :Parser, "json_api_client/legacy/parser"
     autoload :QueryBuilder, "json_api_client/legacy/query_builder"

@@ -50,8 +50,7 @@ module JsonApiClient
       def fetch_data(klass, type, missing_ids)
         path = URI(link_definition.url_for(type, missing_ids)).path
 
-        query = Query::Linked.new(path)
-        results = klass.run_request(query)
+        results = klass.requestor.linked(path)
 
         key = link_definition.attribute_name_for(type).to_s
         add_data(key, results)
