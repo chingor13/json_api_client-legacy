@@ -46,8 +46,10 @@ module JsonApiClient
         case args
         when Hash
           where(args)
+        when Array
+          where(klass.primary_key.to_s.pluralize.to_sym => args.join(","))
         else
-          @primary_key = args
+          where(klass.primary_key => args)
         end
 
         klass.requestor.get(params)
