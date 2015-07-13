@@ -8,11 +8,6 @@ module JsonApiClient
       self.query_builder = JsonApiClient::Legacy::QueryBuilder
       self.requestor_class = JsonApiClient::Legacy::Requestor
 
-      protected
-
-      def self.default_attributes
-        {}
-      end
     end
   end
 end

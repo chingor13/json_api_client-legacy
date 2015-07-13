@@ -38,9 +38,20 @@ module JsonApiClient
       end
 
       def to_a
-        @to_a ||= klass.find(params)
+        @to_a ||= find
       end
       alias all to_a
+
+      def find(args = {})
+        case args
+        when Hash
+          where(args)
+        else
+          @primary_key = args
+        end
+
+        klass.requestor.get(params)
+      end
 
       def method_missing(method_name, *args, &block)
         to_a.send(method_name, *args, &block)
