@@ -9,15 +9,19 @@ module JsonApiClient
       extend Forwardable
       def_delegators :link_definition, :has_link?
 
-      def initialize(data, link_definition, record_class)
-        @link_definition = link_definition
-        @record_class = record_class
+      def initialize(result_set, links_spec, included_data)
+        @record_class = result_set.record_class
         @results_by_type_by_id = {}
+        @link_definition = LinkDefinition.new(links_spec)
 
-        data.each do |type, results|
+        included_data.each do |type, results|
           klass = klass_for(type)
           add_data(type, results.map{|result| klass.new(result)})
         end
+      end
+
+      def has_attribute?(name)
+        has_link?(name)
       end
 
       def data_for(type, ids)
@@ -33,7 +37,7 @@ module JsonApiClient
         klass = klass_for(type)
 
         # return all the found records
-        found, missing = ids.partition { |id| type_data[id].present? }
+        found, missing = ids.partition { |id| type_data[id] }
 
         # make another api request if there are missing records
         fetch_data(klass, type, missing) if missing.present?

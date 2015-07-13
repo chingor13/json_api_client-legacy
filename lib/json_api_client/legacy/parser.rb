@@ -26,7 +26,14 @@ module JsonApiClient
 
           # we will treat everything as an Array
           results = [results] unless results.is_a?(Array)
-          result_set.concat(results.map{|res| result_set.record_class.load(res)})
+          results = results.map do |datum|
+            relationships = datum.delete("links") || {}
+            result_set.record_class.load(datum).tap do |obj|
+              obj.relationships = Relations.new(relationships)
+              obj.result_set = result_set
+            end
+          end
+          result_set.concat(results)
         end
 
         def handle_meta(result_set, data)
@@ -40,15 +47,7 @@ module JsonApiClient
         def handle_links(result_set, data)
           return if result_set.empty?
 
-          linked_data = LinkedData.new(
-                          data.fetch("linked", {}),
-                          LinkDefinition.new(data.fetch("links", {})),
-                          result_set.record_class
-                        )
-
-          result_set.each do |resource|
-            resource.linked_data = linked_data
-          end
+          result_set.included = LinkedData.new(result_set, data.fetch("links", {}), data.fetch("linked", {}))
         end
 
         def handle_errors(result_set, data)

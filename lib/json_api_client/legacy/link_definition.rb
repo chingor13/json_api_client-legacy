@@ -12,6 +12,7 @@ module JsonApiClient
       def has_link?(type)
         @spec.has_key?(type)
       end
+      alias has_attribute? has_link?
 
       def attribute_name_for(type)
         @spec.fetch(type).fetch("type")

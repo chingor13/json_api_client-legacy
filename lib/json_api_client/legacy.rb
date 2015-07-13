@@ -11,6 +11,7 @@ module JsonApiClient
     autoload :Paginator, "json_api_client/legacy/paginator"
     autoload :Parser, "json_api_client/legacy/parser"
     autoload :QueryBuilder, "json_api_client/legacy/query_builder"
+    autoload :Relations, "json_api_client/legacy/relations"
     autoload :Requestor, "json_api_client/legacy/requestor"
   end
 end
