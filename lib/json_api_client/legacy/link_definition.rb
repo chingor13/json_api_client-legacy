@@ -25,6 +25,10 @@ module JsonApiClient
         href.gsub("{#{slurp}}", Array(ids).join(","))
       end
 
+      def as_json_api
+        @spec
+      end
+
     end
   end
 end

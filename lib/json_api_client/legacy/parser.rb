@@ -51,7 +51,9 @@ module JsonApiClient
         end
 
         def handle_errors(result_set, data)
-          result_set.errors = result_set.meta.fetch("errors", [])
+          result_set.errors = result_set.meta.fetch("errors", []).map do |msg|
+            ErrorCollector::Error.new({title: msg, detail: msg})
+          end
         end
       end
 

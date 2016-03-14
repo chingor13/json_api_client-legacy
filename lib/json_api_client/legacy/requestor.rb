@@ -10,13 +10,13 @@ module JsonApiClient
       # expects a record
       def create(record)
         request(:post, klass.path(record.attributes), {
-          klass.resource_name => record.serializable_hash
+          klass.resource_name => record.as_json_api
         })
       end
 
       def update(record)
         request(:put, resource_path(record.attributes), {
-          klass.resource_name => record.serializable_hash.except(klass.primary_key)
+          klass.resource_name => record.as_json_api
         })
       end
 
@@ -60,7 +60,7 @@ module JsonApiClient
       end
 
       def request(type, path, params)
-        klass.parse(connection.run(type, path, params))
+        klass.parser.parse(klass, connection.run(type, path, params))
       end
 
     end
