@@ -23,7 +23,7 @@ class ServerValidationsTest < MiniTest::Unit::TestCase
 
     user = User.load(id: 6, name: "Foo", email_address: "foo@bar.com")
     assert(!user.update_attributes(name: "Foo Bar", email_address: "invalid email address"), "invalid request should return falsy value")
-    assert_equal(1, user.errors.length)
+    assert_equal(1, user.errors.count)
   end
 
   def test_create_validation_error
@@ -47,7 +47,7 @@ class ServerValidationsTest < MiniTest::Unit::TestCase
 
     user = User.new(name: "Foo", email_address: "foo@bar.com")
     assert(!user.update_attributes(name: "Foo Bar", email_address: "invalid email address"), "invalid request should return falsy value")
-    assert_equal(1, user.errors.length)
+    assert_equal(1, user.errors.count)
   end
 
 end
