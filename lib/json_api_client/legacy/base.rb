@@ -22,6 +22,10 @@ module JsonApiClient
         attributes_for_serialization
       end
 
+      def ==(other)
+        attributes == other.attributes
+      end
+
     end
   end
 end
