@@ -18,12 +18,26 @@ module JsonApiClient
         end
       end
 
+      def set_attribute(name, value)
+        if association = association_for(name.to_sym)
+          value = association.association_class.load(value)
+        end
+        super(name, value)
+      end
+
       def as_json_api(*)
         attributes_for_serialization
       end
 
       def ==(other)
-        attributes == other.attributes
+        self.class == other.class &&
+          attributes == other.attributes
+      end
+
+      protected
+
+      def read_relationship(name)
+        super || read_attribute(name)
       end
 
     end
