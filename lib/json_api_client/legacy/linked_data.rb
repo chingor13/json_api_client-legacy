@@ -24,8 +24,10 @@ module JsonApiClient
         has_link?(name)
       end
 
-      def data_for(type, ids)
-        ids = Array(ids)
+      def data_for(type, definition)
+        return nil unless data = definition["data"]
+
+        ids = Array(data)
 
         # the name of the linked data is provided by the link definition from the result
         attr_name = link_definition.attribute_name_for(type)

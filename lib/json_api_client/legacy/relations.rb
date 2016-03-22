@@ -4,7 +4,10 @@ module JsonApiClient
       include Helpers::DynamicAttributes
 
       def initialize(relations)
-        self.attributes = relations
+        self.attributes = {}
+        relations.each do |k, v|
+          attributes[k] = { data: v }
+        end
       end
 
       def present?

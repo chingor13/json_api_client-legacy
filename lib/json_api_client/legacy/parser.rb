@@ -30,7 +30,7 @@ module JsonApiClient
             relationships = datum.delete("links") || {}
             result_set.record_class.load(datum).tap do |obj|
               obj.relationships = Relations.new(relationships)
-              obj.result_set = result_set
+              obj.last_result_set = result_set
             end
           end
           result_set.concat(results)
