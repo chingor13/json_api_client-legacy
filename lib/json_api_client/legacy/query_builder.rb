@@ -2,15 +2,17 @@ module JsonApiClient
   module Legacy
     class QueryBuilder
 
-      attr_reader :klass, :params
+      attr_reader :klass
 
       def initialize(klass)
         @klass = klass
         @params = {}
+        @path_params = {}
       end
 
       def where(conditions = {})
-        @params.merge!(conditions)
+        @path_params.merge!(conditions.slice(*klass.prefix_params))
+        @params.merge!(conditions.except(*klass.prefix_params))
         self
       end
       alias paginate where
@@ -23,6 +25,10 @@ module JsonApiClient
         @params[:includes] ||= []
         @params[:includes] += tables.flatten
         self
+      end
+
+      def params
+        @params.merge(path: @path_params)
       end
 
       def page(number)
@@ -51,7 +57,6 @@ module JsonApiClient
         else
           where(klass.primary_key => args)
         end
-
         klass.requestor.get(params)
       end
 
