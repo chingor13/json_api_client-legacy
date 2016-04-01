@@ -113,7 +113,6 @@ class AssociationTest < MiniTest::Unit::TestCase
 
   def test_belongs_to_path
     assert_equal([:foo_id], Specified.prefix_params)
-    assert_equal("foos/%{foo_id}", Specified.prefix_path)
     assert_raises ArgumentError do
       Specified.path({})
     end
